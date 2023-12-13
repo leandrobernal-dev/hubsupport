@@ -1,3 +1,40 @@
+import React, { Suspense } from "react";
+
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+import Overview, { OverViewSkeleton } from "@/layout/OverviewCard";
+import AnalyticsCardsSection, {
+  AnalyticsCardsSectionSkeleton,
+} from "@/layout/AnalyticsCardsSection";
+
 export default function DashBoardPage() {
-  return <h1>/</h1>;
+  return (
+    <main className="flex flex-col gap-4 p-4">
+      <Suspense fallback={<AnalyticsCardsSectionSkeleton />}>
+        <AnalyticsCardsSection />
+      </Suspense>
+
+      <section className="grid gap-4 md:grid-cols-2 lg:grid-cols-6">
+        <Suspense fallback={<OverViewSkeleton />}>
+          <Card className="col-span-4">
+            <CardHeader>
+              <CardTitle>Overview</CardTitle>
+            </CardHeader>
+            <CardContent className="pl-2">
+              <Overview />
+            </CardContent>
+          </Card>
+        </Suspense>
+
+        <Card className="col-span-2">
+          <CardHeader>
+            <CardTitle>Live Tickets</CardTitle>
+          </CardHeader>
+          <CardContent className="pl-2">
+            <div></div>
+          </CardContent>
+        </Card>
+      </section>
+    </main>
+  );
 }
