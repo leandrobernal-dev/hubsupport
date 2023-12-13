@@ -15,7 +15,6 @@ export default async function DashBoardLayout({ children }) {
   return (
     <UserDataContextProvider>
       <div className="ml-72 pt-14">
-        {user.role === "admin" ? "AdminDashboard" : "UserDashboard"}
         <Nav user={user} />
         <SideNav user={user} />
         {children}

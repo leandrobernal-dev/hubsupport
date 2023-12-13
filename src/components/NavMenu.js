@@ -15,17 +15,31 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-export function NavMenu() {
+export function NavMenu({ user }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Avatar className="cursor-pointer">
-          <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-          <AvatarFallback>CN</AvatarFallback>
+          <AvatarImage src={user.profile} alt="@shadcn" />
+          <AvatarFallback>
+            {user.name
+              .split(" ")
+              .map((word) => word.charAt(0).toUpperCase())
+              .join("")}
+          </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuLabel className="font-normal">
+          <div className="flex flex-col space-y-1">
+            <p className="text-sm font-medium leading-none">
+              {user.username ? user.username : user.name}
+            </p>
+            <p className="text-xs leading-none text-muted-foreground">
+              {user.email}
+            </p>
+          </div>
+        </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem>
