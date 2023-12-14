@@ -6,8 +6,21 @@ import Overview, { OverViewSkeleton } from "@/layout/OverviewCard";
 import AnalyticsCardsSection, {
   AnalyticsCardsSectionSkeleton,
 } from "@/layout/AnalyticsCardsSection";
+import LiveTickets, { LiveTicketsSkeleton } from "@/layout/LiveTickets";
+import dbConnect from "@/db/database";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+import User from "@/models/User";
 
-export default function DashBoardPage() {
+export default async function DashBoardPage() {
+  await dbConnect();
+  const session = await getServerSession();
+  const user = await User.findOne({ email: session.user.email });
+
+  if (user.subscriptionStatus !== "active") {
+    return redirect("/plans");
+  }
+
   return (
     <main className="flex flex-col gap-4 p-4">
       <Suspense fallback={<AnalyticsCardsSectionSkeleton />}>
@@ -30,8 +43,10 @@ export default function DashBoardPage() {
           <CardHeader>
             <CardTitle>Live Tickets</CardTitle>
           </CardHeader>
-          <CardContent className="pl-2">
-            <div></div>
+          <CardContent className="">
+            <Suspense fallback={<LiveTicketsSkeleton />}>
+              <LiveTickets />
+            </Suspense>
           </CardContent>
         </Card>
       </section>
