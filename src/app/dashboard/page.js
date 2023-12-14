@@ -17,7 +17,7 @@ export default async function DashBoardPage() {
   const session = await getServerSession();
   const user = await User.findOne({ email: session.user.email });
 
-  if (user.subscriptionStatus !== "active") {
+  if (user.role === "admin" && user.subscriptionStatus !== "active") {
     return redirect("/plans");
   }
 
