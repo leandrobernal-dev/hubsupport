@@ -15,7 +15,7 @@ export default function Nav({ user }) {
       <div className="flex items-center justify-between gap-2">
         <NotificationMenu />
         <ThemeToggle />
-        <NavMenu user={user} />
+        <NavMenu user={JSON.stringify(user)} />
       </div>
     </nav>
   );

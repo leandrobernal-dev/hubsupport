@@ -18,13 +18,14 @@ import {
 import { signOut } from "next-auth/react";
 
 export function NavMenu({ user }) {
+  const userData = JSON.parse(user);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Avatar className="cursor-pointer">
-          <AvatarImage src={user.profile} alt="@shadcn" />
+          <AvatarImage src={userData.profile} alt="@shadcn" />
           <AvatarFallback>
-            {user.name
+            {userData.name
               .split(" ")
               .map((word) => word.charAt(0).toUpperCase())
               .join("")}
@@ -35,10 +36,10 @@ export function NavMenu({ user }) {
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
             <p className="text-sm font-medium leading-none">
-              {user.username ? user.username : user.name}
+              {userData.username ? userData.username : userData.name}
             </p>
             <p className="text-xs leading-none text-muted-foreground">
-              {user.email}
+              {userData.email}
             </p>
           </div>
         </DropdownMenuLabel>
