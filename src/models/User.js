@@ -1,3 +1,7 @@
+import {
+  subscriptionConfig,
+  subscriptionOptions,
+} from "@/config/subscriptionConfig";
 import mongoose, { Schema } from "mongoose";
 
 const userDb = mongoose.connection.useDb("Users");
@@ -19,8 +23,18 @@ const UserSchema = new Schema(
     },
     role: {
       type: String,
-      enum: ["admin", "agent"],
+      enum: ["admin", "user"],
       default: "user",
+    },
+    subscriptionStatus: {
+      type: String,
+      enum: subscriptionConfig.subscriptionStatuses,
+      default: "incomplete",
+    },
+    subscription: {
+      type: String,
+      enum: subscriptionOptions,
+      default: null,
     },
   },
   {
