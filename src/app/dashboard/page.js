@@ -11,14 +11,20 @@ import dbConnect from "@/db/database";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import User from "@/models/User";
+import Subscriber from "@/models/Subscriber";
+import { gateway } from "@/config/braintreeConfig";
 
 export default async function DashBoardPage() {
   await dbConnect();
   const session = await getServerSession();
   const user = await User.findOne({ email: session.user.email });
+  const subscriber = await Subscriber.findOne({ user: user });
+  const subscriberData = await gateway.customer.find(
+    subscriber.braintreeCustomerId,
+  );
 
-  if (user.role === "admin" && user.subscriptionStatus !== "active") {
-    return redirect("/plans");
+  if (!subscriber) {
+    return redirect("/#plans&pricing");
   }
 
   return (
