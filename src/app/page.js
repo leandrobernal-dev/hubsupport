@@ -10,15 +10,7 @@ export default async function Home() {
       Home
       <section className="flex w-full" id="plans&pricing">
         {sortedPlans.map((plan, index) => (
-          <PlansCard
-            key={index}
-            className="mr-4"
-            details={{
-              title: plan.name,
-              shortDescription: plan.description,
-              price: plan.price,
-            }}
-          />
+          <PlansCard key={index} className="mr-4" plan={plan} />
         ))}
       </section>
     </main>

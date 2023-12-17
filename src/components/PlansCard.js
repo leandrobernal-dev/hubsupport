@@ -27,25 +27,23 @@ const notifications = [
   },
 ];
 
-export function PlansCard({ className, details }) {
+export function PlansCard({ className, plan }) {
   return (
     <Card className={cn("w-80", className)}>
       <CardHeader>
         <CardTitle>
           <div className="flex flex-col items-center justify-center gap-4">
-            <span className="text-xl font-black">{details.title}</span>
-            <span className="text-3xl">${details.price}</span>
+            <span className="text-xl font-black">{plan.name}</span>
+            <span className="text-3xl">${plan.price}</span>
           </div>
         </CardTitle>
         <CardDescription className="flex items-center justify-center">
-          {details.shortDescription}
+          {plan.description}
         </CardDescription>
       </CardHeader>
       <CardContent className="grid gap-4">
         <Button className="w-full" asChild>
-          <Link href={"/product/checkout/?plan=" + details.title.toLowerCase()}>
-            Get Started
-          </Link>
+          <Link href={"/product/checkout/?plan=" + plan.id}>Get Started</Link>
         </Button>
         <div>
           {notifications.map((notification, index) => (
