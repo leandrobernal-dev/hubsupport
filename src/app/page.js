@@ -1,19 +1,22 @@
 import { PlansCard } from "@/components/PlansCard";
-import { subscriptionConfig } from "@/config/subscriptionConfig";
+import { gateway } from "@/config/braintreeConfig";
 
-export default function Home() {
+export default async function Home() {
+  const plans = await gateway.plan.all();
+  const sortedPlans = plans.plans.sort((a, b) => a.price - b.price); // Sort plans based on pricing from low to high
+
   return (
     <main className="pt-14">
       Home
       <section className="flex w-full" id="plans&pricing">
-        {subscriptionConfig.subscriptions.map((subscription, index) => (
+        {sortedPlans.map((plan, index) => (
           <PlansCard
             key={index}
             className="mr-4"
             details={{
-              title: subscription.title,
-              shortDescription: subscription.shortDescription,
-              price: subscription.price,
+              title: plan.name,
+              shortDescription: plan.description,
+              price: plan.price,
             }}
           />
         ))}
