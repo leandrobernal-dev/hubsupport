@@ -3,6 +3,10 @@ import "./globals.css";
 import Nav from "@/layout/Nav";
 import { ThemeProvider } from "@/theme/ThemeProvider";
 import AuthProvider from "@/context/AuthProvider";
+import { SITE } from "@/config/config";
+import User from "@/models/User";
+import dbConnect from "@/db/database";
+import { getServerSession } from "next-auth";
 
 const inter = Inter({ subsets: ["latin"] });
 const poppins = Poppins({
@@ -11,11 +15,16 @@ const poppins = Poppins({
 });
 
 export const metadata = {
-  title: "ColorBlocks",
-  description: "Generate color palettes real time.",
+  title: SITE.title,
+  description: SITE.description,
 };
 
-export default function RootLayout({ children, session }) {
+export default async function RootLayout({ children, session }) {
+  await dbConnect();
+  const userSession = await getServerSession();
+  const user =
+    userSession && (await User.findOne({ email: userSession.user.email }));
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${poppins.className}`} suppressHydrationWarning>
@@ -26,6 +35,7 @@ export default function RootLayout({ children, session }) {
             enableSystem
             disableTransitionOnChange
           >
+            {<Nav user={JSON.stringify(user)} />}
             {children}
           </ThemeProvider>
         </AuthProvider>
