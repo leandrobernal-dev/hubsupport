@@ -4,9 +4,17 @@ import { getServerSession } from "next-auth";
 import { headers } from "next/headers";
 import { gateway } from "@/config/braintreeConfig";
 import Checkout from "@/app/product/checkout/components/Checkout";
+import { redirect } from "next/navigation";
 
 export default async function CheckoutPage({ searchParams }) {
   const header = headers();
+
+  const plans = await gateway.plan.all();
+  const plan = plans.plans.find((plan) => plan.id === searchParams.plan);
+  if (!plan) {
+    return redirect("/#plans&pricing");
+  }
+
   const session = await getServerSession();
   const user = session
     ? await User.findOne({ email: session.user.email })
@@ -17,10 +25,10 @@ export default async function CheckoutPage({ searchParams }) {
   });
 
   const planData = {
-    id: "business_monthly",
-    price: 59.99,
-    plan: "business",
-    duratation: "30 Days",
+    id: plan.id,
+    price: plan.price,
+    plan: plan.name,
+    duratation: plan.billingFrequency + " Month",
   };
 
   return (

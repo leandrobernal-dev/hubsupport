@@ -66,8 +66,7 @@ export default function Checkout({
       <section className="col-span-3">
         <OrderSummary
           plan={searchParams.plan}
-          price={planData.price}
-          duratation={planData.duratation}
+          planData={planData}
           discount={discount}
           setDiscount={setDiscount}
           setCouponCode={setCouponCode}

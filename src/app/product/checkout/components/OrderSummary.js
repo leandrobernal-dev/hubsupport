@@ -13,13 +13,12 @@ import ApplyCoupon from "@/app/product/checkout/components/ApplyCoupon";
 
 export default function OrderSummary({
   plan,
-  price,
-  duratation,
   discount,
   setDiscount,
   setCouponCode,
+  planData,
 }) {
-  const [currentPrice, setCurrentPrice] = useState(price);
+  const [currentPrice, setCurrentPrice] = useState(planData.price);
 
   return (
     <Card className="w-full">
@@ -30,18 +29,18 @@ export default function OrderSummary({
       <CardContent>
         {plan && (
           <div className="flex items-center justify-between">
-            <div>{plan.toUpperCase()} Package</div>
-            <div>${price}</div>
+            <div>{planData.plan} Package</div>
+            <div>${planData.price}</div>
           </div>
         )}
         <div className="flex items-center justify-between">
           <div>Duration</div>
-          <div>{duratation}</div>
+          <div>{planData.duratation}</div>
         </div>
         <Separator className="my-4" />
 
         <ApplyCoupon
-          price={price}
+          price={planData.price}
           setCurrentPrice={setCurrentPrice}
           coupon={discount}
           setDiscount={setDiscount}
