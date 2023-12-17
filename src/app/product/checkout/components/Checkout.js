@@ -7,6 +7,7 @@ import CheckOutForm from "@/app/product/checkout/components/CheckOutForm";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 
 export default function Checkout({
   searchParams,
@@ -15,6 +16,7 @@ export default function Checkout({
   user,
   session,
 }) {
+  const path = usePathname();
   searchParams = JSON.parse(searchParams);
   planData = JSON.parse(planData);
   user = JSON.parse(user);
@@ -34,11 +36,11 @@ export default function Checkout({
             <section>
               You are not logged in,{" "}
               <Button variant="link">
-                <Link href={`/auth/login?callbackUrl=${header.get("referer")}`}>
-                  Login
+                <Link href={`/auth/login?callbackUrl=${path}`}>
+                  Login or SignUp
                 </Link>{" "}
               </Button>
-              first or SignUp.
+              first.
             </section>
           ) : (
             <div>
