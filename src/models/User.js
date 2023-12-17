@@ -26,16 +26,6 @@ const UserSchema = new Schema(
       enum: ["admin", "user"],
       default: "user",
     },
-    subscriptionStatus: {
-      type: String,
-      enum: subscriptionConfig.subscriptionStatuses,
-      default: "incomplete",
-    },
-    subscription: {
-      type: String,
-      enum: subscriptionOptions,
-      default: null,
-    },
   },
   {
     timestamps: true,
