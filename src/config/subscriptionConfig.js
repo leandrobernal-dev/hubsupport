@@ -9,15 +9,18 @@ export const subscriptionConfig = {
   subscriptions: [
     {
       title: "Business",
-      shortDescription: "Best for small Business Owners.",
+      shortDescription: "Best for small Business",
+      price: 59.99,
     },
     {
       title: "Startup",
-      shortDescription: "Best for Startup Owners.",
+      shortDescription: "Best for Startup",
+      price: 100.99,
     },
     {
       title: "Enterprise",
-      shortDescription: "Best for large Enteprise Business Owners.",
+      shortDescription: "Best for large Enteprise Business",
+      price: 239.99,
     },
   ],
 };
