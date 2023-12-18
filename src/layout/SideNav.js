@@ -69,9 +69,9 @@ export default function SideNav({ user }) {
   return (
     <aside className="fixed bottom-0 left-0 top-0 w-72 border-r border-border p-4 shadow">
       <section className="flex items-center gap-4">
-        <Button variant="outline" size="icon">
+        {/* <Button variant="outline" size="icon">
           <Menu className="h-4 w-4" />
-        </Button>
+        </Button> */}
         <Link href={"/"}>
           <h1 className="flex items-center gap-1 text-xl font-black">
             <Palette />
@@ -92,7 +92,8 @@ export default function SideNav({ user }) {
                   className="flex w-full justify-start gap-2"
                 >
                   <Link href={item.link}>
-                    {item.icon} {item.name}
+                    {item.icon}{" "}
+                    <span className="hidden sm:block">{item.name}</span>
                   </Link>
                 </Button>
               );
